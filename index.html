@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="description" content="Gallery of artworks saved over the years" />
+        <meta name="author" content="Delath">
+        <meta name="theme-color" content="#000000"/>  
+
+        <title>Delath's artwork gallery</title>
+
+        <link href="assets/css/styles.css" rel="stylesheet">
+        <link href="https://fonts.cdnfonts.com/css/inter" rel="stylesheet">
+        <link href="https://fonts.cdnfonts.com/css/cardo" rel="stylesheet">
+        <link rel="manifest" href="manifest.json">
+        <link rel="apple-touch-icon" href="assets/web-icon.png">
+        <link rel="icon" type="image/ico" href="assets/favicon.ico">
+    </head>
+
+    <body>
+  
+        <div id="container" class="container">
+
+            <header>
+                <div class="header">
+  
+                    <nav class="navbar">
+                        <a class="contributors" href="https://github.com/Delath" target="_blank">
+                            Delath
+                        </a>
+                        <a class="contributors" href="https://github.com/Demisu" target="_blank">
+                            Demisu
+                        </a>
+                        <a class="contributors" href="https://github.com/billydotexe" target="_blank">
+                            Billy
+                        </a>
+                        <a class="contributors" href="https://youtu.be/xvFZjo5PgG0" target="_blank">
+                            Rick
+                        </a>
+                        <a class="references" href="https://github.com/Delath/Artworks">
+                            Repository
+                        </a>
+                        <div class="x" onclick="closeSideBar()">
+                            <svg class="x-svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                                <path class="x-svg-path" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                        </div>
+                    </nav>
+
+                    <div id="obscure" class="obscure"></div>
+
+                    <div class="hamburger" onclick="openSideBar()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="hamburger-svg" viewBox="0 0 16 16">
+                            <path class="hamburger-svg-path" fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                    </div>
+
+                </div>
+
+            </header>
+  
+            <main>
+                <div id="main" class="main">
+  
+                    <h2 class="title">Artworks</h2>
+  
+                    <div id="obscure-loading" class="obscure-loading" onload="showPage(this)"></div>
+
+                    <div class="gallery">
+  
+                        <div class="column-0">Placeholder</div>
+                    
+                    </div>
+  
+                </div>
+            </main>
+  
+            <a href="#" class="scroll-top">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(0, 0, 0);" class="scroll-top-svg" viewBox="0 0 16 16">
+                    <path class="scroll-top-svg-path" fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                </svg>
+            </a>
+  
+            <footer>
+                <div class="footer">
+                    <small>
+                        Credits will be added to each image.
+                    </small>
+                </div>
+            </footer>
+
+        </div>
+
+        <div id="modal" class="modal-wrapper" style="display: none">
+            <div class="modal" onclick="closeModal()">
+                <img class="modal-image">
+            </div>
+        </div>
+
+        <script>
+            if ('serviceWorker' in navigator) {
+		    	navigator.serviceWorker.register('service-worker.js');
+		    }
+            function openModal(url){
+                let modalImage = document.querySelector("#modal .modal-image");
+                modalImage.src = ""
+                modalImage.src = url
+
+                let modal = document.querySelector("#modal");
+                modal.style.display = "block"
+
+                let myWidth
+                if( typeof( window.innerWidth ) == 'number' ) {
+                //Non-IE
+                    myWidth = window.innerWidth;
+                } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                //IE 6+ in 'standards compliant mode'
+                    myWidth = document.documentElement.clientWidth;
+                } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                //IE 4 compatible
+                    myWidth = document.body.clientWidth;
+                }
+
+                let wholeHtml = document.querySelector('html')
+                wholeHtml.style.overflow = "hidden"
+
+                if(!(myWidth<=1280)){
+                    wholeHtml.style.paddingRight = "10px"
+
+                    let header = document.querySelector("#container .header")
+                    header.style.paddingRight = "10px"
+
+                    let scrollTop = document.querySelector("#container .scroll-top")
+                    scrollTop.style.transition = "all 0s"
+                    scrollTop.style.right = "25px"
+
+                    let linkedin = document.querySelector("#container .linkedin")
+                    linkedin.style.paddingRight = "10px"
+                }
+            }
+            function closeModal(){
+                let header = document.querySelector("#container .header")
+                header.style.paddingRight = "0px"
+
+                let scrollTop = document.querySelector("#container .scroll-top")
+                scrollTop.style.right = "15px"
+                setTimeout(function(){scrollTop.style.removeProperty("transition")}, 400)
+
+                let modal = document.querySelector("#modal");
+                modal.style.display = "none"
+
+                let wholeHtml = document.querySelector('html')
+                wholeHtml.style.overflow = "visible"
+                wholeHtml.style.paddingRight = "0px"
+
+                let linkedin = document.querySelector("#container .linkedin")
+                linkedin.style.paddingRight = "0px"
+            }
+            function openSideBar(){
+                console.log("opened")
+                let navbar = document.querySelector("#container .navbar")
+                navbar.style.right = "0px"
+
+                let obscurer = document.getElementById("obscure")
+                obscurer.style.width = "100vh"
+                obscurer.style.height = "100vh"
+            }
+            function closeSideBar(){
+                console.log("closed")
+                let navbar = document.querySelector("#container .navbar")
+                navbar.style.right = "-900px"
+
+                let obscurer = document.getElementById("obscure")
+                obscurer.style.width = "0px"
+                obscurer.style.height = "0px"
+            }
+        </script>
+        <script src="assets/js/app.js"></script>
+    </body>
+
+</html>
